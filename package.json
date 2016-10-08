@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Social App: UI",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "scripts/build.sh | node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
+    "build": "scripts/build.sh"
   },
   "repository": {
     "type": "git",
