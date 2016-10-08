@@ -1,0 +1,18 @@
+# JetBrains (PhpStorm, WebStorm etc.)
+.idea
+
+# System dirs
+.DS_Store
+
+# Node/NPM
+node_modules
+npm-debug.log
+
+# Build output directory
+dist
+
+# VS Code
+jsconfig.json
+
+.env
+infrastructure/comments-moderation-auth
