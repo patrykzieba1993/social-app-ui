@@ -1,0 +1,11 @@
+<html>
+    <head>
+        <title>
+            Social App
+        </title>
+        <script src="social-app-ui.js"></script>
+    </head>
+    <body>
+        Hello there!
+    </body>
+</html>
