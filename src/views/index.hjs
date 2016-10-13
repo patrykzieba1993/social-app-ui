@@ -3,9 +3,9 @@
         <title>
             Social App
         </title>
-        <script src="social-app-ui.js"></script>
     </head>
     <body>
-        Hello there!
+        <div id="social-root"></div>
+        <script src="social-app-ui.js"></script>
     </body>
 </html>
