@@ -9,5 +9,5 @@ init({
   App,
   routes,
   mainPath: '/',
-  container: 'social-root',
+  container: 'social',
 });

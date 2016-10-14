@@ -1,4 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
+import FlatButton from 'material-ui/FlatButton';
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { Link } from 'react-router';
 
 class App extends Component {
   constructor() {
@@ -6,24 +10,37 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
-    const { saySth } = this.props;
-    saySth();
+  getChildContext() {
+    return {
+      muiTheme: getMuiTheme(baseTheme)
+    }
   }
 
+  handleClick() {
+    const {showRegisterDialog} = this.props;
+    showRegisterDialog();
+  }
+  
   render() {
-    const { location } = this.props;
-
     return (
       <div>
-          {this.props.children}
+        <div>
+          <Link to="/login/register">
+            <FlatButton label="Rejestracja" primary={true}/>
+          </Link>
+        </div>
+        {this.props.children}
       </div>
     );
   }
 }
 
 App.propTypes = {
-  saySth: PropTypes.func.isRequired
+  showRegisterDialog: PropTypes.func.isRequired
+};
+
+App.childContextTypes = {
+  muiTheme: React.PropTypes.object.isRequired
 };
 
 export default App;

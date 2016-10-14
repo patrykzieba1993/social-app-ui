@@ -5,7 +5,7 @@
     </title>
 </head>
 <body>
-<div id="non-authorized-root"></div>
+<div id="non-authorized"></div>
 <script src="../non-authorized.js"></script>
 </body>
 </html>

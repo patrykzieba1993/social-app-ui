@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 export default class AnotherTestComponent extends Component {
   constructor() {
@@ -7,7 +8,10 @@ export default class AnotherTestComponent extends Component {
 
   render() {
     return (
-      <div>Test 2</div>
+      <div>
+        <Link to="/test">Klik</Link>
+        <div>Test 2</div>
+      </div>
     );
   }
 }

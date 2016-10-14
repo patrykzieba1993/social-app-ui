@@ -1,7 +1,7 @@
-export const SAY_STH = 'SAY_STH';
+export const SHOW_REGISTER_DIALOG = 'SHOW_REGISTER_DIALOG';
 
-export function saySth() {
+export function showRegisterDialog() {
   return {
-    type: SAY_STH
+    type: SHOW_REGISTER_DIALOG
   };
 }

@@ -5,7 +5,7 @@
         </title>
     </head>
     <body>
-        <div id="social-root"></div>
+        <div id="social"></div>
         <script src="stack.js"></script>
     </body>
 </html>
