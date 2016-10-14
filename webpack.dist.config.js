@@ -13,9 +13,12 @@ module.exports = {
   debug: false,
   devtool: 'source-map',
   entry: {
-    'social-app-ui': [
-      './src/index.js'
-    ]
+    'stack': [
+      './src/indexStack.js'
+    ],
+    'non-authorized': [
+      './src/indexNonAuthorized.js'
+    ],
   },
   stats: {
     colors: true,

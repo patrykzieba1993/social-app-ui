@@ -1,0 +1,11 @@
+<html>
+<head>
+    <title>
+        Non authorized
+    </title>
+</head>
+<body>
+<div id="non-authorized-root"></div>
+<script src="../non-authorized.js"></script>
+</body>
+</html>

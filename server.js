@@ -33,7 +33,8 @@ const setupStatic = (app) => {
 };
 
 const setupRoutes = (app) => {
-  app.get('/', (req, res) => res.render('index'));
+  app.get('/login/*', (req, res) => res.render('login'));
+  app.get('/*', (req, res) => res.render('index'));
   app.use(notFound);
   app.use(errorHandler);
 };

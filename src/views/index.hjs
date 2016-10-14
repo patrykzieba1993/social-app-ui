@@ -6,6 +6,6 @@
     </head>
     <body>
         <div id="social-root"></div>
-        <script src="social-app-ui.js"></script>
+        <script src="stack.js"></script>
     </body>
 </html>

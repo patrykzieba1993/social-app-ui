@@ -10,10 +10,14 @@ module.exports = {
   debug: true,
   devtool: 'source-map',
   entry: {
-    'social-app-ui': [
+    'stack': [
       'webpack-hot-middleware/client',
-      './src/index.js'
-    ]
+      './src/indexStack.js'
+    ],
+    'non-authorized': [
+      'webpack-hot-middleware/client',
+      './src/indexNonAuthorized.js'
+    ],
   },
   stats: {
     colors: true,
