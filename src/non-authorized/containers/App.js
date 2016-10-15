@@ -6,12 +6,13 @@ import { showRegisterDialog } from '../actions/ui';
 function mapStateToProps(state, ownProps) {
   return {
     history: ownProps.history,
+    registerState: state.authorization.registerState,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    showRegisterDialog
+    showRegisterDialog,
   };
   return bindActionCreators(actions, dispatch);
 }

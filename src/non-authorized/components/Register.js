@@ -8,6 +8,8 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 class Register extends Component {
   constructor() {
     super();
+    this.handleSend = this.handleSend.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   state = {
@@ -18,14 +20,41 @@ class Register extends Component {
     confirmPasswordError: '',
     emailError: '',
   }
+
+  componentDidUpdate() {
+    if (this.props.registerState) {
+      this.handleClose();
+    }
+  }
   
-  handleClose = () => {
+  componentWillMount() {
+    const { resetRegister } = this.props;
+    resetRegister();
+  }
+  
+  handleClose() {
     const { router } = this.context;
     router.push('/login');
   };
 
-  handleSend = () => {
-    console.log('sending...');
+  handleSend() {
+    const personalData = {
+      firstName: this.firstName.input.value,
+      lastName: this.lastName.input.value,
+      login: this.login.input.value,
+      password: this.password.input.value,
+      confirmPassword: this.confirmPassword.input.value,
+      email: this.email.input.value,
+      birthDate: this.date.state.date,
+      sex: this.sex.state.selected,
+    };
+    
+    this.register(personalData);
+  }
+  
+  register(personalData) {
+    const { register } = this.props;
+    register(personalData);
   }
   
   render() {
@@ -58,42 +87,49 @@ class Register extends Component {
             <TextField
               floatingLabelText="Imie"
               errorText={this.state.firstNameError}
+              ref= {(c) => this.firstName = c}
             />
             <br/>
             <TextField
               floatingLabelText="Nazwisko"
               errorText={this.state.lastNameError}
+              ref= {(c) => this.lastName = c}
             />
             <br/>
             <TextField
               floatingLabelText="Adres e-mail"
               errorText={this.state.emailError}
+              ref= {(c) => this.email = c}
             />
             <br/>
             <TextField
               floatingLabelText="Login"
               errorText={this.state.loginError}
+              ref= {(c) => this.login = c}
             />
             <br/>
             <TextField
               floatingLabelText="Hasło"
               type="password"
               errorText={this.state.passwordError}
+              ref= {(c) => this.password = c}
             />
             <br/>
             <TextField
               floatingLabelText="Potwierdź hasło"
               type="password"
               errorText={this.state.confirmPasswordError}
+              ref= {(c) => this.confirmPassword = c}
             />
             <br/>
             <br/>
             <DatePicker
               hintText="Data urodzenia"
               mode="landscape"
+              ref={(c) => this.date = c}
             />
             <br/>
-            <RadioButtonGroup defaultSelected="male">
+            <RadioButtonGroup defaultSelected="male" name="sex" ref= {(c) => this.sex = c}>
               <RadioButton
                 value="male"
                 label="Mężczyzna"
@@ -115,7 +151,10 @@ Register.contextTypes = {
 };
 
 Register.propTypes = {
-  registerDialogVisible: PropTypes.bool.isRequired,
+  register: PropTypes.func.isRequired,
+  resetRegister: PropTypes.func.isRequired,
+  registerSuccessful: PropTypes.func.isRequired,
+  registerState: PropTypes.bool,
 };
 
 export default Register;

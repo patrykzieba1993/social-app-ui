@@ -22,12 +22,15 @@ class App extends Component {
   }
   
   render() {
+    const { registerState } = this.props;
+    
     return (
       <div>
         <div>
           <Link to="/login/register">
             <FlatButton label="Rejestracja" primary={true}/>
           </Link>
+          <span style={{display: registerState ? 'block' : 'none'}}>Pomyslna rejestracja</span>
         </div>
         {this.props.children}
       </div>
@@ -36,7 +39,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  showRegisterDialog: PropTypes.func.isRequired
+  registerState: PropTypes.bool,
 };
 
 App.childContextTypes = {

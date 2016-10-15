@@ -2,15 +2,20 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Register from '../components/Register';
 
+import { register } from '../actions/authorization';
+import { registerSuccessful, resetRegister } from '../actions/authorization';
+
 function  mapStateToProps(state) {
   return {
-    registerDialogVisible: state.ui.registerDialogVisible,
+    registerState: state.authorization.registerState,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    
+    register,
+    registerSuccessful,
+    resetRegister,
   };
   return bindActionCreators(actions, dispatch);
 }
