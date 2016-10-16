@@ -4,6 +4,8 @@ import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Link } from 'react-router';
 
+import LoginForm from './LoginForm';
+
 class App extends Component {
   constructor() {
     super();
@@ -26,7 +28,8 @@ class App extends Component {
     
     return (
       <div>
-        <div>
+        <div style={{textAlign: 'center', marginTop: '25px'}}>
+          <LoginForm />
           <Link to="/login/register">
             <FlatButton label="Rejestracja" primary={true}/>
           </Link>

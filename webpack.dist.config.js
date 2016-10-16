@@ -27,9 +27,9 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-      'styles': __dirname + '/src/styles',
-      'mixins': __dirname + '/src/mixins',
-      'components': __dirname + '/src/components/'
+      'styles': __dirname + '/src/**/styles',
+      'mixins': __dirname + '/src/**/mixins',
+      'components': __dirname + '/src/**/components/'
     }
   },
   module: {

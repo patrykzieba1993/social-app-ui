@@ -2,6 +2,9 @@ require('dotenv')
   .load({ silent: true });
 const express = require('express');
 const consolidate = require('consolidate');
+const bodyParser = require('body-parser');
+
+const loginHandler = require('./src-server/http/loginHandler');
 
 const notFound = (req, res, next) => {
   const err = new Error('Resource not found');
@@ -24,6 +27,11 @@ const basicConfig = (app) => {
   app.set('views', `${__dirname}/src/views`);
   app.engine('hjs', consolidate.handlebars);
   app.set('view engine', 'hjs');
+
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+  app.use(bodyParser.json());
 };
 
 const setupStatic = (app) => {
@@ -33,9 +41,13 @@ const setupStatic = (app) => {
 };
 
 const setupRoutes = (app) => {
+  app.get('/dashboard*', (req, res) => res.render('dashboard'));
+  
+  app.post('/login/authenticate', loginHandler);
   app.get('/login*', (req, res) => res.render('login'));
   
-  app.get('/*', (req, res) => res.render('index'));
+  // app.get('/*', (req, res) => res.render('index'));
+  
   app.use(notFound);
   app.use(errorHandler);
 };
