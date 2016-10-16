@@ -1,11 +1,11 @@
 <html>
 <head>
     <title>
-        Non authorized
+        Social App
     </title>
 </head>
 <body>
 <div id="non-authorized"></div>
-<script src="../non-authorized.js"></script>
+<script src="{{__dirname__}}/non-authorized.js"></script>
 </body>
 </html>

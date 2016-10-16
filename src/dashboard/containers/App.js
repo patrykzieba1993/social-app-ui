@@ -5,7 +5,6 @@ import { saySth } from '../actions/ui';
 
 function mapStateToProps(state, ownProps) {
   return {
-    history: ownProps.history,
   };
 }
 

@@ -1,10 +1,12 @@
 <html>
-    <head>
-        <title>
-            Dashboard
-        </title>
-    </head>
-    <body>
-        No to kurwa zaczynamy przedstawienie...
-    </body>
+<head>
+    <title>
+        Social App
+    </title>
+</head>
+<body>
+<div id="dashboard"></div>
+<script src="{{__dirname__}}/socket.io/socket.io.js"></script>
+<script src="{{__dirname__}}/dashboard.js"></script>
+</body>
 </html>

@@ -10,9 +10,9 @@ module.exports = {
   debug: true,
   devtool: 'source-map',
   entry: {
-    'stack': [
+    'dashboard': [
       'webpack-hot-middleware/client',
-      './src/indexStack.js'
+      './src/indexDashboard.js'
     ],
     'non-authorized': [
       'webpack-hot-middleware/client',

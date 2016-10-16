@@ -1,5 +1,9 @@
 require('dotenv')
   .load({ silent: true });
+
+const http = require('http');
+const socket = require('socket.io');
+
 const express = require('express');
 const consolidate = require('consolidate');
 const bodyParser = require('body-parser');
@@ -52,6 +56,15 @@ const setupRoutes = (app) => {
   app.use(errorHandler);
 };
 
+const setupSockets = (io) => {
+  io.on('connection', (socket) => {
+    console.log('user connected...');
+    socket.on('post', (msg) => {
+      console.log(msg);
+    });
+  });
+}
+
 const setupWebpack = (app) => {
   const webpack = require('webpack');
   const webpackConfig = require('./webpack.config');
@@ -73,13 +86,16 @@ const setupWebpack = (app) => {
 
 const start = () => {
   const app = express();
-  
+  const server = http.Server(app);
+  const io = socket(server);
+
   basicConfig(app);
   setupWebpack(app);
   setupStatic(app);
   setupRoutes(app);
+  setupSockets(io);
   
-  app.listen(process.env.PORT, () => console.log(`App listening on ${process.env.PORT} port`));
+  server.listen(process.env.PORT, () => console.log(`App listening on ${process.env.PORT} port`));
 };
 
 start();

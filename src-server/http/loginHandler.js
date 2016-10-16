@@ -16,7 +16,7 @@ const loginHandler = (req, res) => {
       }
       return res.redirect('/login/loginFailure');
     })
-    .then(data => res.redirect(`/dashboard/main/${data.id}`))
+    .then(data => res.redirect(`/dashboard/home/${data.id}`))
     .catch(err => res.redirect('/login/loginFailure'));
 };
 

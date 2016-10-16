@@ -13,8 +13,8 @@ module.exports = {
   debug: false,
   devtool: 'source-map',
   entry: {
-    'stack': [
-      './src/indexStack.js'
+    'dashboard': [
+      './src/indexDashboard.js'
     ],
     'non-authorized': [
       './src/indexNonAuthorized.js'
