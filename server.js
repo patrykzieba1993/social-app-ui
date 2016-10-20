@@ -9,6 +9,7 @@ const consolidate = require('consolidate');
 const bodyParser = require('body-parser');
 
 const loginHandler = require('./src-server/http/loginHandler');
+const socketHelper = require('./src-server/socket/socketHelper');
 
 const notFound = (req, res, next) => {
   const err = new Error('Resource not found');
@@ -39,7 +40,7 @@ const basicConfig = (app) => {
 };
 
 const setupStatic = (app) => {
-  const PUBLIC_DIR = `${__dirname}/src`;
+  const PUBLIC_DIR = `${__dirname}`;
   app.use(express.static(PUBLIC_DIR));
   app.locals.staticFile = (opts) => opts.fn(opts);
 };
@@ -57,12 +58,7 @@ const setupRoutes = (app) => {
 };
 
 const setupSockets = (io) => {
-  io.on('connection', (socket) => {
-    console.log('user connected...');
-    socket.on('post', (msg) => {
-      console.log(msg);
-    });
-  });
+  socketHelper(io);
 }
 
 const setupWebpack = (app) => {

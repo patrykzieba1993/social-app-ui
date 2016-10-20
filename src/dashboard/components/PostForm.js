@@ -4,17 +4,26 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import io from 'socket.io-client';
-
 class PostForm extends Component {
   constructor() {
     super();
     this.handleSend = this.handleSend.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+  }
+  
+  state = {
+    text: null,
   }
   
   handleSend() {
-    const socket = io.connect('localhost:3001');
-    socket.emit('post', { text: 'lololo', id: this.props.params.id });
+    const { sendPost } = this.props;
+    sendPost(this.state.text, this.props.params.id);
+  }
+  
+  handleTextChange(e) {
+    this.setState({
+      text: e.target.value
+    });
   }
   
   render() {
@@ -22,11 +31,13 @@ class PostForm extends Component {
       <div>
         <Paper zDepth='1' style={{width: '50%', margin: '0 auto', paddingBottom: '8px'}}>
           <TextField
+            key="Post input"
             floatingLabelText="Napisz coś ..."
             multiLine={true}
             rows={2}
             rowsMax={4}
             style={{width: '90%', margin: '0 5% 0 5%'}}
+            onChange={this.handleTextChange}
           />
           <div style={{textAlign: 'right', marginRight: '5%'}}>
             <RaisedButton
@@ -41,5 +52,8 @@ class PostForm extends Component {
   }
 }
 
+PostForm.PropTypes = {
+  sendPost: PropTypes.func.isRequired,
+}
 
 export default PostForm;

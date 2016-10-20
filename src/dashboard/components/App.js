@@ -9,6 +9,13 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentWillMount() {
+    const { id } = this.props.location;
+    const { initSocket, fetchPosts } = this.props;
+    initSocket();
+    fetchPosts(id);
+  }
+  
   getChildContext() {
     return {
       muiTheme: getMuiTheme(baseTheme)
@@ -32,7 +39,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  saySth: PropTypes.func.isRequired
+  initSocket: PropTypes.func.isRequired
 };
 
 App.childContextTypes = {
