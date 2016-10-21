@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Home from '../components/Home';
 
-import { sendPost } from '../actions/dashboard';
+import { sendPost, sendComment } from '../actions/dashboard';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -15,6 +15,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   const actions = {
     sendPost,
+    sendComment,
   };
   return bindActionCreators(actions, dispatch);
 }

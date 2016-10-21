@@ -12,6 +12,18 @@ const sendPost = (post) => {
   });
 }
 
+const sendComment = (comment) => {
+  const formData = new FormData();
+  formData.append('content', comment.content);
+  formData.append('userId', comment.userId);
+  formData.append('postId', comment.postId);
+
+  return fetch('http://localhost:3000/dashboard/comment', {
+    method: 'POST',
+    body: formData,
+  });
+}
+
 const onPost = (io, socket) => {
   socket.on('post', (post) => {
     sendPost(post)
@@ -29,11 +41,29 @@ const onPost = (io, socket) => {
       });
       // i tu tez catch ...
   });
-}
+};
+
+const onCommenet = (io, socket) => {
+  socket.on('comment', (comment) => {
+    sendComment(comment)
+      .then(response => {
+        if(response.status === 201) {
+          return response.json();
+        }
+        return null;
+      })
+      .then(data => {
+        if(data) {
+          return io.emit('comment', data);
+        }
+      });
+  });
+};
 
 const socketHelper = (io) => {
   io.on('connection', (socket) => {
     onPost(io, socket);
+    onCommenet(io, socket);
   });
 };
 

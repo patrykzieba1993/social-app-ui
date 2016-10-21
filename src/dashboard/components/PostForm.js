@@ -54,6 +54,7 @@ class PostForm extends Component {
 
 PostForm.PropTypes = {
   sendPost: PropTypes.func.isRequired,
+  params: PropTypes.object,
 }
 
 export default PostForm;
