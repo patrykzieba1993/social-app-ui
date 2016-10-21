@@ -12,10 +12,10 @@ class SocketsService {
       callback(msg);
     })
   }
-  sendPost(text, id) {
+  sendPost(post, id) {
     this.socket.emit('post', {
-      text,
-      id,
+      content: post,
+      author: parseInt(id, 10),
     });
   }
 }
