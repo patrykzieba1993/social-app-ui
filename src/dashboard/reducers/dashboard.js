@@ -1,13 +1,13 @@
-import {RECEIVE_POST} from '../actions/dashboard';
+import { RECEIVE_POSTS_WITH_COMMENTS } from '../actions/dashboard';
 
 const defaultState = {
-  posts: [],
+  postsWithComments: [],
 };
 
 export default function filters(state = defaultState, action) {
   switch (action.type) {
-    case RECEIVE_POST:
-      return Object.assign({}, state, { posts: [...state.posts, action.data]});
+    case RECEIVE_POSTS_WITH_COMMENTS:
+      return Object.assign({}, state, { postsWithComments: [...state.postsWithComments, ...action.data]});
     default:
       return state;
   }

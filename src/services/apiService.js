@@ -22,8 +22,8 @@ export default class ApiService {
     })
   }
   
-  static fetchPosts(id) {
-    return fetch(`${API_URL}/dashboard/posts/${id}`, {
+  static fetchPostsWithComments(id) {
+    return fetch(`${API_URL}/dashboard/postsWithComments/${id}`, {
       method: 'GET'
     })
       .then(response => {

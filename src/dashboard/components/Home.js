@@ -5,8 +5,8 @@ import PostCard from './PostCard';
 
 class Home extends Component {
   render() {
-    const { posts } = this.props;
-    const postCards = posts.map(item => <PostCard post={item} />);
+    const { postsWithComments } = this.props;
+    const postCards = postsWithComments.map(item => <PostCard postWithComments={item} />);
     
     return (
       <div>
@@ -19,6 +19,7 @@ class Home extends Component {
 
 Home.PropTypes = {
   sendPost: PropTypes.func.isRequired,
+  postsWithComments: PropTypes.array,
 }
 
 export default Home;

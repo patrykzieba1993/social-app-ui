@@ -11,9 +11,9 @@ class App extends Component {
 
   componentWillMount() {
     const { id } = this.props.location;
-    const { initSocket, fetchPosts } = this.props;
+    const { initSocket, fetchPostsWithComments } = this.props;
     initSocket();
-    fetchPosts(id);
+    fetchPostsWithComments(id);
   }
   
   getChildContext() {
@@ -39,7 +39,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-  initSocket: PropTypes.func.isRequired
+  initSocket: PropTypes.func.isRequired,
+  fetchPostsWithComments: PropTypes.func.isRequired,
 };
 
 App.childContextTypes = {

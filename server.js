@@ -40,7 +40,8 @@ const basicConfig = (app) => {
 };
 
 const setupStatic = (app) => {
-  const PUBLIC_DIR = `${__dirname}`;
+  const PUBLIC_DIR = `${__dirname}/public`;
+  console.log(PUBLIC_DIR);
   app.use(express.static(PUBLIC_DIR));
   app.locals.staticFile = (opts) => opts.fn(opts);
 };

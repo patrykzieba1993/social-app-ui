@@ -8,7 +8,7 @@ import { sendPost } from '../actions/dashboard';
 function mapStateToProps(state, ownProps) {
   return {
     location: ownProps.params,
-    posts: state.dashboard.posts,
+    postsWithComments: state.dashboard.postsWithComments,
   }
 };
 
