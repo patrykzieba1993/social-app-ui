@@ -21,6 +21,23 @@ class SocketsService {
     });
   }
   
+  onPostNotification(callback) {
+    this.socket.on('post-notification', () => {
+      console.log('ding!');
+      callback();
+    });
+  }
+
+  onCommentNotification(callback) {
+    this.socket.on('comment-notification', () => {
+      callback();
+    });
+  }
+
+  sendClientInfo(id) {
+    this.socket.emit('clientInfo', { userId: id });
+  }
+  
   sendPost(post, id) {
     this.socket.emit('post', {
       content: post,
