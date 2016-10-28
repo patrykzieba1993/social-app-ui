@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import Home from '../components/Home';
 
-import { sendPost, sendComment } from '../actions/dashboard';
+
+import { sendPost, sendComment, fetchPostsWithComments } from '../actions/dashboard';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -14,6 +15,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
+    fetchPostsWithComments,
     sendPost,
     sendComment,
   };

@@ -1,4 +1,4 @@
-import SocketService from '../../services/socketsService';
+import socketService from '../../services/socketsService';
 import apiServices from '../../services/apiService';
 
 export const INIT_SOCKET = 'INIT_SOCKET';
@@ -8,17 +8,16 @@ export const RECEIVE_POST = 'RECEIVE_POST';
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const RECEIVE_POST_NOTIFICATION = 'RECEIVE_POST_NOTIFICATION';
 export const RECEIVE_COMMENT_NOTIFICATION = 'RECEIVE_COMMENT_NOTIFICATION';
-
-const socketService = new SocketService();
+export const RECEIVE_MESSAGE_NOTIFICATION = 'RECEIVE_MESSAGE_NOTIFICATION';
 
 export function initSocket(userId) {
   return(dispatch, getState) => {
-    socketService.init();
     socketService.sendClientInfo(userId);
     socketService.onPost(post => dispatch(receivePost(post)));
     socketService.onComment(comment => dispatch(receiveComment(comment)));
     socketService.onPostNotification(postNotification => dispatch(receivePostNotification()));
     socketService.onCommentNotification(commentNotification => dispatch(receiveCommentNotification()));
+    socketService.onMessageNotification(messageNotification => dispatch(receiveMessageNotification()));
   }
 }
 
@@ -46,6 +45,12 @@ export function receiveCommentNotification() {
   return {
     type: RECEIVE_COMMENT_NOTIFICATION,
   };
+}
+
+export function receiveMessageNotification() {
+  return {
+    type: RECEIVE_MESSAGE_NOTIFICATION,
+  }
 }
 
 export function receivePostsWithComments(data) {

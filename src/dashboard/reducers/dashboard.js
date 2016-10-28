@@ -4,6 +4,7 @@ import {
   RECEIVE_COMMENT,
   RECEIVE_POST_NOTIFICATION,
   RECEIVE_COMMENT_NOTIFICATION,
+  RECEIVE_MESSAGE_NOTIFICATION,
 } from '../actions/dashboard';
 
 const defaultState = {
@@ -21,7 +22,6 @@ export default function filters(state = defaultState, action) {
     case RECEIVE_POST:
       return Object.assign({}, state, { postsWithComments: [action.data, ...state.postsWithComments]});
     case RECEIVE_COMMENT:
-      console.log(action.data);
       const foundPost = state.postsWithComments.find(post => post.id === action.data.postId);
       foundPost.comments = [...foundPost.comments, action.data];
       return Object.assign({}, state, { postsWithComments: [...state.postsWithComments]});
@@ -29,6 +29,8 @@ export default function filters(state = defaultState, action) {
       return Object.assign({}, state, { postsNotifications: ++state.postsNotifications });
     case RECEIVE_COMMENT_NOTIFICATION:
       return Object.assign({}, state, { commentsNotifications: ++state.commentsNotifications});
+    case RECEIVE_MESSAGE_NOTIFICATION:
+      return Object.assign({}, state, { messagesNotifications: ++state.messagesNotifications })
     default:
       return state;
   }

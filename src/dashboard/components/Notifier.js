@@ -40,8 +40,7 @@ class Notifier extends Component {
   };
 
   render() {
-    console.log(this.context);
-    const { icon, notification } = this.props;
+    const { icon } = this.props;
     return (
       <div style={{float: 'right'}}>
         <Badge

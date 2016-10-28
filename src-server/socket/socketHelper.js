@@ -26,6 +26,18 @@ const sendComment = (comment) => {
   });
 }
 
+const sendMessage = (data) => {
+  const formData = new FormData();
+  formData.append('content', data.message);
+  formData.append('senderId', data.senderId);
+  formData.append('receiverId', data.receiverId);
+
+  return fetch('http://localhost:3000/chat/message', {
+    method: 'POST',
+    body: formData,
+  });
+};
+
 const onClientInfo = (io, socket) => {
   socket.on('clientInfo', (data) => {
     let clientInfo = {
@@ -87,11 +99,39 @@ const onCommenet = (io, socket) => {
   });
 };
 
+const onMessage = (io, socket) => {
+  const notify = (data) => {
+    const notifyAboutMessage = (id) => io.sockets.in(id).emit('message', data);
+    const subscriber = clients.find(client => client.userId == data.receiverId);
+    if (subscriber) {
+      notifyAboutMessage(subscriber.socketId);
+      io.sockets.in(subscriber.socketId).emit('message-notification');
+    }
+    notifyAboutMessage(socket.id);
+  };
+  
+  socket.on('message', (data) => {
+    sendMessage(data)
+      .then(response => {
+        if(response.status === 201) {
+          notify({
+            content: data.message,
+            senderId: data.senderId,
+            receiverId: data.receiverId,
+          });
+        }
+        return null;
+      });
+  });
+};
+
 const onDisconnect = (io, socket) => {
-  clients.forEach((client, index) => {
-    if (client.socketId == socket.id) {
-      clients.splice(index, 1);
-    };
+  socket.on('disconnect', () => {
+    clients.forEach((client, index) => {
+      if (client.socketId == socket.id) {
+        clients.splice(index, 1);
+      };
+    });
   });
 };
 
@@ -101,6 +141,7 @@ const socketHelper = (io) => {
     onPost(io, socket);
     onCommenet(io, socket);
     onDisconnect(io, socket);
+    onMessage(io, socket);
   });
 };
 

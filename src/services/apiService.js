@@ -32,4 +32,26 @@ export default class ApiService {
         } // obsluga ...
       })
   }
+
+  static fetchFriends(id) {
+    return fetch(`${API_URL}/friendship/${id}`, {
+      method: 'GET'
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      });
+  }
+
+  static fetchMessages(senderId, receiverId) {
+    return fetch(`${API_URL}/chat/messages/${senderId}/${receiverId}`, {
+      method: 'GET'
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      });
+  }
 }

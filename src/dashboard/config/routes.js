@@ -1,7 +1,7 @@
 import HomeContainer from '../containers/HomeContainer';
-import MessagesContainer from '../containers/MessagesContainer';
+import ChatContainer from '../containers/ChatContainer';
 
 export const routes = [
   { name: 'home', path: '/dashboard/home/:id', component: HomeContainer },
-  { name: 'messages', path: '/dashboard/messages', component: MessagesContainer },
+  { name: 'chat', path: '/dashboard/chat/:id', component: ChatContainer },
 ];

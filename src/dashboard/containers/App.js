@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { initSocket, fetchPostsWithComments } from '../actions/dashboard';
+import { initSocket } from '../actions/dashboard';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -16,7 +16,6 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   const actions = {
     initSocket,
-    fetchPostsWithComments,
   };
   return bindActionCreators(actions, dispatch);
 }
