@@ -26,6 +26,7 @@ class PostCard extends Component {
       <Paper zDepth='1' style={{width: '50%', margin: '0 auto', marginTop: '8px'}}>
         <Card expanded={this.state.expanded} onExpandChange={(state) => this.handleExpandChange(state)}>
           <CardHeader
+            avatar={`../../${postWithComments.login}.jpg`}
             title={postWithComments.content}
             actAsExpander={true}
             showExpandableButton={true}

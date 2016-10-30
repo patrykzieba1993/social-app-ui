@@ -54,4 +54,70 @@ export default class ApiService {
         }
       });
   }
+
+  static fetchPostsAndCommentsNotifications(id) {
+    return fetch(`${API_URL}/notification/postsAndComments/${id}`, {
+      method: 'GET'
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      });
+  }
+
+  static fetchMessagesNotifications(id) {
+    return fetch(`${API_URL}/notification/messages/${id}`, {
+      method: 'GET'
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      });
+  }
+
+  static fetchFriendshipsNotifications(id) {
+    return fetch(`${API_URL}/notification/friendships/${id}`, {
+      method: 'GET'
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      });
+  }
+  
+  static inactivatePostsAndCommentsNotifications(id) {
+    return fetch(`${API_URL}/notification/postsAndComments/${id}`, {
+      method: 'PATCH'
+    })
+      .then(response => {
+        if (response.status === 204) {
+          return;
+        }
+      });
+  }
+  
+  static inactivateMessagesNotifications(id) {
+    return fetch(`${API_URL}/notification/messages/${id}`, {
+      method: 'PATCH'
+    })
+      .then(response => {
+        if (response.status === 204) {
+          return;
+        }
+      });
+  }
+  
+  static inactivateFriendshipsNotifications(id) {
+    return fetch(`${API_URL}/notification/friendships/${id}`, {
+      method: 'PATCH'
+    })
+      .then(response => {
+        if (response.status === 204) {
+          return;
+        }
+      });
+  }
 }

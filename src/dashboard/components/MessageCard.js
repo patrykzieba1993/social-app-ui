@@ -10,7 +10,6 @@ class MessageCard extends Component {
         <div style={{textAlign: align, width: '100%'}}>{message.content}</div>
       );
     });
-    console.log(items);
     return (
       <div>
         { items }

@@ -89,6 +89,7 @@ const onCommenet = (io, socket) => {
           data.friends.forEach(friendId => {
             const subscriber = clients.find(client => client.userId == friendId);
             if (subscriber) {
+              
               io.sockets.in(subscriber.socketId).emit('comment', data.comment);
               io.sockets.in(subscriber.socketId).emit('comment-notification');
             }

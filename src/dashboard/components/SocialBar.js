@@ -9,12 +9,11 @@ class SocialBar extends Component {
   }
   
   render() {
-    const { notifications } = this.props;
     return (
       <div>
         <AppBar
           title={<span>Social App</span>}
-          iconElementRight={<SocialBarItems notifications={notifications} />}
+          iconElementRight={<SocialBarItems/>}
           style={{marginBottom: '10px'}}
         />
       </div>
@@ -23,7 +22,6 @@ class SocialBar extends Component {
 }
 
 SocialBar.propTypes = {
-  notifications: PropTypes.object,
 }
 
 export default SocialBar;

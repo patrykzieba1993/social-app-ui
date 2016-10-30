@@ -16,18 +16,17 @@ class App extends Component {
   }
   
   getChildContext() {
+    const {location} = this.props;
     return {
-      muiTheme: getMuiTheme(baseTheme)
+      muiTheme: getMuiTheme(baseTheme),
+      location,
     }
   }
   
   render() {
-    const { postsNotifications, commentsNotifications, friendshipsNotifications, messagesNotifications } = this.props;
-    const notifications = { postsNotifications, commentsNotifications, messagesNotifications, friendshipsNotifications };
-    
     return (
       <div>
-        <SocialBar notifications={notifications} />
+        <SocialBar />
           {this.props.children}
       </div>
     );
@@ -37,14 +36,11 @@ class App extends Component {
 App.propTypes = {
   location: PropTypes.object,
   initSocket: PropTypes.func.isRequired,
-  postsNotifications: PropTypes.number,
-  commentsNotifications: PropTypes.number,
-  messagesNotifications: PropTypes.number,
-  friendshipsNotifications: PropTypes.number,
 };
 
 App.childContextTypes = {
-  muiTheme: React.PropTypes.object.isRequired
+  muiTheme: React.PropTypes.object.isRequired,
+  location: PropTypes.object,
 };
 
 export default App;

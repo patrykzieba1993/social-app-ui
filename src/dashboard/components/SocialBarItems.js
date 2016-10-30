@@ -1,22 +1,23 @@
 import React, {Component, PropTypes} from 'react';
-import NotifierItems from './NotifierItems';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
+
+import NotifiersContainer from '../containers/NotifiersContainer';
 
 class SocialBarItems extends Component {
   render() {
-    const { notifications } = this.props;
+    const { location } = this.context;
     return (
       <Toolbar style={{ background: 'rgb(0, 188, 212)'}}>
         <ToolbarGroup>
-          <NotifierItems notifications={notifications} />
+          <NotifiersContainer location={location} />
         </ToolbarGroup>
       </Toolbar>
     );
   }
 }
 
-SocialBarItems.propTypes = {
-  notifications: PropTypes.object,
+SocialBarItems.contextTypes = {
+  location: PropTypes.object,
 }
 
 export default SocialBarItems;

@@ -25,20 +25,60 @@ class NotifierItems extends Component {
   };
 
   render() {
-    const { notifications } = this.props;
-    
+    const { 
+      notifications,
+      location,
+      data,
+      fetchPostsAndCommentsNotifications,
+      fetchMessagesNotifications,
+      fetchFriendshipsNotifications,
+      inactivatePostsAndCommentsNotifications,
+      inactivateMessagesNotifications,
+      inactivateFriendshipsNotifications
+    } = this.props;
+    console.log(data);
+    console.log(notifications);
     return (
       <div style={{marginRight: '100px'}}>
-        <Notifier notification={ notifications.postsNotifications + notifications.commentsNotifications } icon={<NotificationsIcon />} />
-        <Notifier notification={ notifications.messagesNotifications } icon={<CakeIcon />} />
-        <Notifier notification={ notifications.friendshipsNotifications} icon={<MoodIcon />} />
+        <Notifier 
+          notification={ notifications.postsNotifications + notifications.commentsNotifications } 
+          fetcher={fetchPostsAndCommentsNotifications}
+          inactivate={inactivatePostsAndCommentsNotifications}
+          icon={<NotificationsIcon />} 
+          location={location}
+          data={data.postsAndCommentsNotificationsData}
+        />
+        <Notifier 
+          notification={ notifications.messagesNotifications } 
+          fetcher={fetchMessagesNotifications}
+          inactivate={inactivateMessagesNotifications}
+          icon={<CakeIcon />}
+          location={location}
+          data={data.messagesNotificationsData}
+        />
+        <Notifier 
+          notification={ notifications.friendshipsNotifications} 
+          fetcher={fetchFriendshipsNotifications}
+          inactivate={() => {}}
+          icon={<MoodIcon />}
+          location={location}
+          data={data.friendshipsNotificationsData}
+        />
       </div>
     );
   }
 }
 
-NotificationsIcon.propTypes = {
+NotifierItems.propTypes = {
+  location: PropTypes.object,
   notifications: PropTypes.object,
+  data: PropTypes.object,
+  fetchPostsAndCommentsNotifications: PropTypes.func,
+  fetchMessagesNotifications: PropTypes.func,
+  fetchFriendshipsNotifications: PropTypes.func,
+  inactivatePostsAndCommentsNotifications: PropTypes.func,
+  inactivateMessagesNotifications: PropTypes.func,
+  inactivateFriendshipsNotifications: PropTypes.func,
 }
 
 export default NotifierItems;
