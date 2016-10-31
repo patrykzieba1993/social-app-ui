@@ -36,8 +36,7 @@ class NotifierItems extends Component {
       inactivateMessagesNotifications,
       inactivateFriendshipsNotifications
     } = this.props;
-    console.log(data);
-    console.log(notifications);
+    
     return (
       <div style={{marginRight: '100px'}}>
         <Notifier 

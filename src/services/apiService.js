@@ -120,4 +120,19 @@ export default class ApiService {
         }
       });
   }
+
+  static sendUserSearchQuery(query, userId) {
+    const formData = new FormData();
+    prepareFormData({ query, userId }, formData);
+
+    return fetch(`${API_URL}/search`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => {
+        if(response.status === 200) {
+          return response.json();
+        }
+      });
+  }
 }

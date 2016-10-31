@@ -11,6 +11,7 @@ import {
   POSTS_AND_COMMENETS_NOTIFICATIONS_INACTIVATED,
   MESSAGES_NOTIFICATIONS_INACTIVATED,
   FRIENDSHIPS_NOTIFICATIONS_INACTIVATED,
+  RECEIVE_SEARCH_RESULT,
 } from '../actions/dashboard';
 
 const defaultState = {
@@ -22,6 +23,7 @@ const defaultState = {
   commentsNotifications: 0,
   messagesNotifications: 0,
   friendshipsNotifications: 0,
+  searchResult: [],
 };
 
 export default function filters(state = defaultState, action) {
@@ -51,7 +53,9 @@ export default function filters(state = defaultState, action) {
     case MESSAGES_NOTIFICATIONS_INACTIVATED:
       return Object.assign({}, state, { messagesNotificationsData: [], messagesNotifications: 0});
     case FRIENDSHIPS_NOTIFICATIONS_INACTIVATED: 
-      return Object.assign({}, state, { friendshipsNotificationsData: [], friendshipsNotifications: 0})
+      return Object.assign({}, state, { friendshipsNotificationsData: [], friendshipsNotifications: 0});
+    case RECEIVE_SEARCH_RESULT:
+      return Object.assign({}, state, { searchResult: [...action.data]});
     default:
       return state;
   }

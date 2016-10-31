@@ -9,6 +9,11 @@ class Home extends Component {
     fetchPostsWithComments(location.id);
   }
   
+  // componentWillUpdate() {
+  //   const { fetchPostsWithComments, location } = this.props;
+  //   fetchPostsWithComments(location.id);
+  // }
+  
   render() {
     const { postsWithComments, sendComment, sendPost, params } = this.props;
     const postCards = postsWithComments.map(item => <PostCard postWithComments={item} sendComment={sendComment} params={params} />);

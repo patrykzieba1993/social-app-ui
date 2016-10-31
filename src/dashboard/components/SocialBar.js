@@ -15,6 +15,7 @@ class SocialBar extends Component {
           title={<span>Social App</span>}
           iconElementRight={<SocialBarItems/>}
           style={{marginBottom: '10px'}}
+          titleStyle={{width: '100px'}}
         />
       </div>
     );

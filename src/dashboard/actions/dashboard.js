@@ -15,6 +15,7 @@ export const RECEIVE_MESSAGE_NOTIFICATION = 'RECEIVE_MESSAGE_NOTIFICATION';
 export const RECEIVE_POSTS_AND_COMMENTS_NOTIFICATIONS_WITH_DATA = 'RECEIVE_POSTS_AND_COMMENTS_NOTIFICATIONS_WITH_DATA';
 export const RECEIVE_MESSAGES_NOTIFICATIONS_WITH_DATA = 'RECEIVE_MESSAGES_NOTIFICATIONS_WITH_DATA';
 export const RECEIVE_FRIENDSHIPS_NOTIFICATIONS_WITH_DATA = 'RECEIVE_FRIENDSHIPS_NOTIFICATIONS_WITH_DATA';
+export const RECEIVE_SEARCH_RESULT = 'RECEIVE_SEARCH_RESULT';
 export const POSTS_AND_COMMENETS_NOTIFICATIONS_INACTIVATED = 'POSTS_AND_COMMENETS_NOTIFICATIONS_INACTIVATED';
 export const MESSAGES_NOTIFICATIONS_INACTIVATED = 'MESSAGES_NOTIFICATIONS_INACTIVATED';
 export const FRIENDSHIPS_NOTIFICATIONS_INACTIVATED = 'FRIENDSHIPS_NOTIFICATIONS_INACTIVATED';
@@ -108,6 +109,13 @@ export function receivePostsWithComments(data) {
   }
 }
 
+export function receiveSearchResult(data) {
+  return {
+    type: RECEIVE_SEARCH_RESULT,
+    data,
+  };
+}
+
 export function fetchPostsWithComments(id) {
   return(dispatch, getState) => {
     apiServices.fetchPostsWithComments(id)
@@ -173,5 +181,12 @@ export function sendComment(comment, userId, postId) {
 export function sendPost(post, id) {
   return(dispatch, getState) => {
     socketService.sendPost(post, id);
+  };
+}
+
+export function sendUserSearchQuery(content, id) {
+  return (dispatch, getState) => {
+    apiServices.sendUserSearchQuery(content, id)
+      .then(data => dispatch(receiveSearchResult(data)));
   };
 }
