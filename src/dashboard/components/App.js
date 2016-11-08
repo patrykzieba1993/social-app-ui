@@ -11,8 +11,9 @@ class App extends Component {
   }
 
   componentWillMount() {
-    const { initSocket, location } = this.props;
+    const { initSocket, location, setLoggedUserData } = this.props;
     initSocket(location.id);
+    setLoggedUserData({ id: location.id });
   }
   
   getChildContext() {
@@ -20,6 +21,7 @@ class App extends Component {
     return {
       muiTheme: getMuiTheme(baseTheme),
       location,
+      loggedUserData: {id: location.id}, // load id from localstorage
     }
   }
   
@@ -36,11 +38,13 @@ class App extends Component {
 App.propTypes = {
   location: PropTypes.object,
   initSocket: PropTypes.func.isRequired,
+  setLoggedUserData: PropTypes.func.isRequired,
 };
 
 App.childContextTypes = {
   muiTheme: React.PropTypes.object.isRequired,
   location: PropTypes.object,
+  loggedUserData: PropTypes.object,
 };
 
 export default App;

@@ -8,8 +8,8 @@ import { sendPost, sendComment, fetchPostsWithComments } from '../actions/dashbo
 
 function mapStateToProps(state, ownProps) {
   return {
-    location: ownProps.params,
     postsWithComments: state.dashboard.postsWithComments,
+    loggedUserData: state.dashboard.loggedUserData,
   };
 };
 

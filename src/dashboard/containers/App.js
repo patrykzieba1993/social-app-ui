@@ -5,6 +5,7 @@ import App from '../components/App';
 
 import { 
   initSocket,
+  setLoggedUserData,
 } from '../actions/dashboard';
 
 function mapStateToProps(state, ownProps) {
@@ -16,6 +17,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   const actions = {
     initSocket,
+    setLoggedUserData,
   };
   return bindActionCreators(actions, dispatch);
 }

@@ -38,6 +38,19 @@ const sendMessage = (data) => {
   });
 };
 
+const sendInvitation = (data) => {
+  const formData = new FormData();
+  formData.append('userId', data.who);
+  formData.append('friendId', data.whom);
+
+  return fetch('http://localhost:3000/friendship', {
+    method: 'POST',
+    body: formData,
+  });
+}
+
+// =======================================================
+
 const onClientInfo = (io, socket) => {
   socket.on('clientInfo', (data) => {
     let clientInfo = {
@@ -65,10 +78,10 @@ const onPost = (io, socket) => {
             const subscriber = clients.find(client => client.userId == friendId);
             if (subscriber) {
               io.sockets.in(subscriber.socketId).emit('post-notification');
-              io.sockets.in(subscriber.socketId).emit('post', Object.assign(post, { comments: [], id: data.id }));
+              io.sockets.in(subscriber.socketId).emit('post', Object.assign({}, Object.assign(post, { comments: [], id: data.id }), { userData: data.userData }));
             }
           });
-          io.sockets.in(socket.id).emit('post', Object.assign(post, { comments: [], id: data.id }));
+          io.sockets.in(socket.id).emit('post', Object.assign({}, Object.assign(post, { comments: [], id: data.id }), { userData: data.userData }));
         }
       });
       // i tu tez catch ...
@@ -85,16 +98,18 @@ const onCommenet = (io, socket) => {
         return null;
       })
       .then(data => {
+        const backSocket = comment.friendProfile ? 'profile-comment' : 'comment';
         if(data) {
           data.friends.forEach(friendId => {
             const subscriber = clients.find(client => client.userId == friendId);
             if (subscriber) {
-              
-              io.sockets.in(subscriber.socketId).emit('comment', data.comment);
+              if (backSocket != 'profile-comment') {
+                io.sockets.in(subscriber.socketId).emit(backSocket, data.comment);
+              }
               io.sockets.in(subscriber.socketId).emit('comment-notification');
             }
           });
-          io.sockets.in(socket.id).emit('comment', data.comment);
+          io.sockets.in(socket.id).emit(backSocket, data.comment);
         }
       });
   });
@@ -126,6 +141,24 @@ const onMessage = (io, socket) => {
   });
 };
 
+const onInvitation = (io, socket) => {
+  socket.on('invitation', data => {
+    const notify = () => {
+      const subscriber = clients.find(client => client.userId == data.whom)
+      if (subscriber) {
+        io.sockets.in(subscriber.socketId).emit('invitation-notification');
+      }
+    };
+
+    sendInvitation(data)
+      .then(response => {
+        if (response.status === 201) {
+          notify();
+        }
+      });
+  });
+};
+
 const onDisconnect = (io, socket) => {
   socket.on('disconnect', () => {
     clients.forEach((client, index) => {
@@ -141,6 +174,7 @@ const socketHelper = (io) => {
     onClientInfo(io, socket);
     onPost(io, socket);
     onCommenet(io, socket);
+    onInvitation(io, socket);
     onDisconnect(io, socket);
     onMessage(io, socket);
   });

@@ -7,10 +7,12 @@ import {
   sendUserSearchQuery,
 } from '../actions/dashboard';
 
+
 function mapPropsToState(state, ownProps) {
   return {
     searchResult: state.dashboard.searchResult,
     location: ownProps.location,
+    loggedUserData: state.dashboard.loggedUserData,
   }
 }
 

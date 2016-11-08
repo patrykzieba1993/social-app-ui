@@ -5,22 +5,17 @@ import PostCard from './PostCard';
 
 class Home extends Component {
   componentWillMount() {
-    const { fetchPostsWithComments, location } = this.props;
-    fetchPostsWithComments(location.id);
+    const { fetchPostsWithComments, loggedUserData } = this.props;
+    fetchPostsWithComments(loggedUserData.id);
   }
   
-  // componentWillUpdate() {
-  //   const { fetchPostsWithComments, location } = this.props;
-  //   fetchPostsWithComments(location.id);
-  // }
-  
   render() {
-    const { postsWithComments, sendComment, sendPost, params } = this.props;
-    const postCards = postsWithComments.map(item => <PostCard postWithComments={item} sendComment={sendComment} params={params} />);
+    const { postsWithComments, sendComment, sendPost, loggedUserData } = this.props;
+    const postCards = postsWithComments.map(item => <PostCard width='50%' postWithComments={item} sendComment={sendComment} loggedUserData={loggedUserData} />);
     
     return (
       <div>
-        <PostForm params={params} sendPost={sendPost} />
+        <PostForm loggedUserData={loggedUserData} sendPost={sendPost} />
         {postCards}
       </div>
     );
@@ -32,7 +27,7 @@ Home.PropTypes = {
   sendComment: PropTypes.func.isRequired,
   fetchPostsWithComments: PropTypes.func.isRequired,
   postsWithComments: PropTypes.array,
-  location: PropTypes.object,
+  loggedUserData: PropTypes.object,
 }
 
 export default Home;

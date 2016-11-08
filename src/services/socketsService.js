@@ -22,6 +22,12 @@ class SocketsService {
     });
   }
 
+  onProfileComment(callback) {
+    this.socket.on('profile-comment', msg => {
+      callback(msg);
+    });
+  }
+  
   onMessage(callback) {
     this.socket.on('message', msg => {
       callback(msg);
@@ -48,6 +54,12 @@ class SocketsService {
     });
   }
   
+  onInvitationNotification(callback) {
+    this.socket.on('invitation-notification', () => {
+      callback();
+    });
+  }
+  
   sendClientInfo(id) {
     this.socket.emit('clientInfo', { userId: id });
   }
@@ -59,17 +71,24 @@ class SocketsService {
     });
   }
   
-  sendComment(comment, userId, postId) {
+  sendComment(comment, userId, postId, friendProfile = null) {
     this.socket.emit('comment', {
       content: comment,
       userId,
       postId,
+      friendProfile,
     });
   }
   
   sendMessage(message, senderId, receiverId) {
     this.socket.emit('message', {
       message, senderId, receiverId,
+    });
+  }
+
+  sendInvitation(who, whom) {
+    this.socket.emit('invitation', {
+      who, whom,
     });
   }
 }

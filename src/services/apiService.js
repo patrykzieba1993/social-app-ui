@@ -87,7 +87,18 @@ export default class ApiService {
         }
       });
   }
-  
+
+  static fetchUserPageData(userId, visitorId) {
+    return fetch(`${API_URL}/page/${userId}/${visitorId}`, {
+      method: 'GET',
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      });
+  }
+
   static inactivatePostsAndCommentsNotifications(id) {
     return fetch(`${API_URL}/notification/postsAndComments/${id}`, {
       method: 'PATCH'

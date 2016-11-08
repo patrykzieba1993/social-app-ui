@@ -15,8 +15,9 @@ class CommentForm extends Component {
   };
   
   handleSend() {
-    const { sendComment, params, id } = this.props;
-    sendComment(this.state.comment, params.id, id);
+    const { sendComment, loggedUserData, id, friendProfile } = this.props;
+    
+    sendComment(this.state.comment, loggedUserData.id, id, friendProfile);
   }
   
   handleTextChange(e) {
@@ -41,9 +42,11 @@ class CommentForm extends Component {
   }
 }
 
+
 CommentForm.propTypes = {
+  friendProfile: PropTypes.bool,
   sendComment: PropTypes.func.isRequired,
-  params: PropTypes.object,
+  loggedUserData: PropTypes.object,
   id: PropTypes.number,
 };
 

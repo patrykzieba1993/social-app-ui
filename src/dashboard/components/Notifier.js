@@ -107,6 +107,12 @@ class Notifier extends Component {
             }
           }
           break;
+        case 'friendship':
+          if (item.active) {
+            badgeCounter++;
+          }
+          content = `Użytkownik ${item.who.firstName} ${item.who.lastName} zaprosił Cie do znajomych`
+          break;
         default:
           content = '';
       }

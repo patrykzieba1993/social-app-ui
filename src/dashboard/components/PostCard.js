@@ -21,19 +21,19 @@ class PostCard extends Component {
   }
   
   render() {
-    const { postWithComments, sendComment, params } = this.props;
+    const { postWithComments, sendComment, loggedUserData, friendProfile } = this.props;
     return (
-      <Paper zDepth='1' style={{width: '50%', margin: '0 auto', marginTop: '8px'}}>
+      <Paper zDepth='1' style={{width: this.props.width, margin: '0 auto', marginTop: '8px'}}>
         <Card expanded={this.state.expanded} onExpandChange={(state) => this.handleExpandChange(state)}>
           <CardHeader
-            avatar={`../../${postWithComments.login}.jpg`}
+            avatar={`../../${postWithComments.login || postWithComments.userData.login}.jpg`}
             title={postWithComments.content}
             actAsExpander={true}
             showExpandableButton={true}
           />
           <CardText expandable={true}>
             <CommentCard comments={postWithComments.comments} />
-            <CommentForm sendComment={sendComment} params={params} id={postWithComments.id}/>
+            <CommentForm sendComment={sendComment} loggedUserData={loggedUserData} id={postWithComments.id} friendProfile={friendProfile} />
           </CardText>
           <CardActions>
           </CardActions>
@@ -44,9 +44,11 @@ class PostCard extends Component {
 }
 
 PostCard.propTypes = {
+  width: PropTypes.string,
+  friendProfile: PropTypes.bool,
   postWithComments: PropTypes.object,
   sendComment: PropTypes.func.isRequired,
-  params: PropTypes.object,
+  loggedUserData: PropTypes.object,
 }
 
 export default PostCard;

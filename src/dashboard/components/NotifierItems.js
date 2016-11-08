@@ -58,7 +58,7 @@ class NotifierItems extends Component {
         <Notifier 
           notification={ notifications.friendshipsNotifications} 
           fetcher={fetchFriendshipsNotifications}
-          inactivate={() => {}}
+          inactivate={inactivateFriendshipsNotifications}
           icon={<MoodIcon />}
           location={location}
           data={data.friendshipsNotificationsData}

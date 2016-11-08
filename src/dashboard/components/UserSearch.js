@@ -26,8 +26,8 @@ class UserSearch extends Component {
   }
   
   handleSend() {
-    const { sendUserSearchQuery, location } = this.props;
-    sendUserSearchQuery(this.query.input.value, location.id)
+    const { sendUserSearchQuery, loggedUserData } = this.props;
+    sendUserSearchQuery(this.query.input.value, loggedUserData.id)
     
     this.setState({
       open: true,
@@ -97,6 +97,7 @@ UserSearch.contextTypes = {
 };
 
 UserSearch.PropTypes = {
+  loggedUserData: PropTypes.object,
   searchResult: PropTypes.array,
   location: PropTypes.object,
   sendUserSearchQuery: PropTypes.func.isRequired,

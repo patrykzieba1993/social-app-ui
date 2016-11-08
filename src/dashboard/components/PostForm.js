@@ -16,8 +16,8 @@ class PostForm extends Component {
   }
   
   handleSend() {
-    const { sendPost } = this.props;
-    sendPost(this.state.text, this.props.params.id);
+    const { sendPost, loggedUserData } = this.props;
+    sendPost(this.state.text, loggedUserData.id);
   }
   
   handleTextChange(e) {
@@ -52,9 +52,10 @@ class PostForm extends Component {
   }
 }
 
+
 PostForm.PropTypes = {
   sendPost: PropTypes.func.isRequired,
-  params: PropTypes.object,
+  loggedUserData: PropTypes.object,
 }
 
 export default PostForm;

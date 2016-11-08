@@ -10,7 +10,7 @@ class CommentCard extends Component {
     const itemsList = comments.map(comment =>
       <div>
         <ListItem
-          leftAvatar={<Avatar src="/../../ok-128.jpg" />}
+          leftAvatar={<Avatar src={`/../../${comment.user.login}.jpg`} />}
           secondaryTextLines="2"
           primaryText={`${comment.user.firstName} ${comment.user.lastName}`}
           secondaryText={
