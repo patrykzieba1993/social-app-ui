@@ -3,6 +3,7 @@ import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
 import Paper from 'material-ui/Paper';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
 
 class Notifier extends Component {
   constructor() {
@@ -10,6 +11,9 @@ class Notifier extends Component {
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.prepareItems = this.prepareItems.bind(this);
+    this.handleAccept = this.handleAccept.bind(this);
+    this.handleReject = this.handleReject.bind(this);
+    this.hideItem = this.hideItem.bind(this);
   }
   
   state = {
@@ -17,9 +21,15 @@ class Notifier extends Component {
     badgeVisible: true,
     badgeValue: 0,
     contents: [],
+    showItem: true,
+    data: [],
+    notification: 0,
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.showItem != nextState.showItem) {
+      return true;
+    }
     if ((nextProps.data !== this.props.data || nextState.open !== this.state.open)) {
       return true;
     }
@@ -32,11 +42,10 @@ class Notifier extends Component {
 
   componentWillReceiveProps(props) {
     const { data, notification } = props;
-    const { contents, count } = this.prepareItems(data);
     
     this.setState({
-      badgeValue: count + notification,
-      contents,
+      data,
+      notification
     });
   }
 
@@ -47,6 +56,25 @@ class Notifier extends Component {
 
   componentWillUpdate() {
     
+  }
+  
+  handleAccept(id) {
+    const { sendAccept } = this.props;
+    sendAccept(id);
+    // this.hideItem();
+  }
+  
+  handleReject(id) {
+    const { sendReject } = this.props;
+    sendReject(id);
+    // this.hideItem();
+  }
+  
+  hideItem() {
+    this.setState({
+      showItem: false,
+      contents: this.state.contents,
+    });
   }
   
   handleTouchTap = (event) => {
@@ -111,7 +139,12 @@ class Notifier extends Component {
           if (item.active) {
             badgeCounter++;
           }
-          content = `Użytkownik ${item.who.firstName} ${item.who.lastName} zaprosił Cie do znajomych`
+          content =
+            <div>
+              <span>{`Użytkownik ${item.who.firstName} ${item.who.lastName} zaprosił Cie do znajomych`}</span>
+              <span><FlatButton label="Akceptuj" onTouchTap={() => this.handleAccept(item.id)} /></span>
+              <span><FlatButton label="Odrzuć" onTouchTap={() => this.handleReject(item.id)} /></span>
+            </div>
           break;
         default:
           content = '';
@@ -131,13 +164,19 @@ class Notifier extends Component {
   }
 
   render() {
+    console.log('rerender');
+
+    const { contents, count } = this.prepareItems(this.state.data);
+    
+    const badgeValue = count + this.state.notification;
+    
     const { icon } = this.props;
     return (
       <div style={{float: 'right'}}>
         <Badge
           style={{padding: 0}}
-          badgeContent={this.state.badgeValue}
-          badgeStyle={{display: this.state.badgeValue > 0 ? 'flex': 'none'}}
+          badgeContent={badgeValue}
+          badgeStyle={{display: badgeValue > 0 ? 'flex': 'none'}}
           secondary={true}
         >
           <IconButton onTouchTap={this.handleTouchTap}>
@@ -155,7 +194,7 @@ class Notifier extends Component {
           style={{width: '33%'}}
         >
           <Paper zDepth="1">
-            {this.state.contents}
+            {contents}
           </Paper>
         </Popover>
       </div>
@@ -170,6 +209,8 @@ Notifier.propTypes = {
   data: PropTypes.array,
   fetcher: PropTypes.func,
   inactivate: PropTypes.func,
+  sendAccept: PropTypes.func,
+  sendReject: PropTypes.func,
 };
 
 export default Notifier;

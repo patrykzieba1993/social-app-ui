@@ -10,7 +10,6 @@ class PostForm extends Component {
     this.handleSend = this.handleSend.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
   }
-  
   state = {
     text: null,
   }
@@ -19,7 +18,6 @@ class PostForm extends Component {
     const { sendPost, loggedUserData } = this.props;
     sendPost(this.state.text, loggedUserData.id);
   }
-  
   handleTextChange(e) {
     this.setState({
       text: e.target.value
@@ -38,6 +36,7 @@ class PostForm extends Component {
             rowsMax={4}
             style={{width: '90%', margin: '0 5% 0 5%'}}
             onChange={this.handleTextChange}
+            autoFocus
           />
           <div style={{textAlign: 'right', marginRight: '5%'}}>
             <RaisedButton

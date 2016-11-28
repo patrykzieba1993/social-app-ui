@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const FormData = require('form-data');
+const verifier = require('./../verifier/verifier');
 
 const clients = [];
 
@@ -64,32 +65,39 @@ const onClientInfo = (io, socket) => {
 
 const onPost = (io, socket) => {
   socket.on('post', (post) => {
+    post = Object.assign(post, { content: verifier.verify(post.content) });
     sendPost(post)
       .then(response => {
         if (response.status === 201) {
           return response.json();
         }
         return null;
-        // ogarnac obsluge bledow ...
       })
       .then(data => {
         if(data) {
+          const prepareDataToEmit = () => Object.assign({}, Object.assign(post, {
+            comments: [],
+            id: data.id
+          }), {
+            userData: data.userData
+          })
+
           data.friends.forEach(friendId => {
             const subscriber = clients.find(client => client.userId == friendId);
             if (subscriber) {
               io.sockets.in(subscriber.socketId).emit('post-notification');
-              io.sockets.in(subscriber.socketId).emit('post', Object.assign({}, Object.assign(post, { comments: [], id: data.id }), { userData: data.userData }));
+              io.sockets.in(subscriber.socketId).emit('post', prepareDataToEmit());
             }
           });
-          io.sockets.in(socket.id).emit('post', Object.assign({}, Object.assign(post, { comments: [], id: data.id }), { userData: data.userData }));
+          io.sockets.in(socket.id).emit('post', prepareDataToEmit());
         }
       });
-      // i tu tez catch ...
   });
 };
 
 const onCommenet = (io, socket) => {
   socket.on('comment', (comment) => {
+    comment = Object.assign(comment, { content: verifier.verify(comment.content) });
     sendComment(comment)
       .then(response => {
         if(response.status === 201) {

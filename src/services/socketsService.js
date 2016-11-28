@@ -40,6 +40,13 @@ class SocketsService {
     });
   }
 
+  sendPost(post, id) {
+    this.socket.emit('post', {
+      content: post,
+      author: parseInt(id, 10),
+    });
+  }
+
   onCommentNotification(callback) {
     this.socket.on('comment-notification', () => {
       callback();
@@ -64,12 +71,7 @@ class SocketsService {
     this.socket.emit('clientInfo', { userId: id });
   }
   
-  sendPost(post, id) {
-    this.socket.emit('post', {
-      content: post,
-      author: parseInt(id, 10),
-    });
-  }
+
   
   sendComment(comment, userId, postId, friendProfile = null) {
     this.socket.emit('comment', {

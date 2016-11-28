@@ -34,7 +34,9 @@ class NotifierItems extends Component {
       fetchFriendshipsNotifications,
       inactivatePostsAndCommentsNotifications,
       inactivateMessagesNotifications,
-      inactivateFriendshipsNotifications
+      inactivateFriendshipsNotifications,
+      sendAccept,
+      sendReject,
     } = this.props;
     
     return (
@@ -62,6 +64,8 @@ class NotifierItems extends Component {
           icon={<MoodIcon />}
           location={location}
           data={data.friendshipsNotificationsData}
+          sendAccept={sendAccept}
+          sendReject={sendReject}
         />
       </div>
     );
@@ -78,6 +82,8 @@ NotifierItems.propTypes = {
   inactivatePostsAndCommentsNotifications: PropTypes.func,
   inactivateMessagesNotifications: PropTypes.func,
   inactivateFriendshipsNotifications: PropTypes.func,
+  sendAccept: PropTypes.func,
+  sendReject: PropTypes.func,
 }
 
 export default NotifierItems;

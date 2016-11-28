@@ -5,6 +5,7 @@ import UserSearch from '../components/UserSearch';
 
 import {
   sendUserSearchQuery,
+  sendInvitation,
 } from '../actions/dashboard';
 
 
@@ -19,6 +20,7 @@ function mapPropsToState(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   const actions = {
     sendUserSearchQuery,
+    sendInvitation,
   };
   return bindActionCreators(actions, dispatch);
 }

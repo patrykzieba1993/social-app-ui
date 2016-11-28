@@ -10,6 +10,7 @@ class Register extends Component {
     super();
     this.handleSend = this.handleSend.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleFile = this.handleFile.bind(this);
   }
 
   state = {
@@ -19,6 +20,7 @@ class Register extends Component {
     passwordError: '',
     confirmPasswordError: '',
     emailError: '',
+    avatar: null,
   }
 
   componentDidUpdate() {
@@ -31,7 +33,24 @@ class Register extends Component {
     const { resetRegister } = this.props;
     resetRegister();
   }
-  
+
+  handleFile(e) {
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.onload = (upload) => {
+      this.setState({
+        avatar: {
+          data_uri: upload.target.result,
+          filename: file.name,
+          filetype: file.type,
+        }
+      });
+    }
+
+    reader.readAsDataURL(file);
+  }
+
   handleClose() {
     const { router } = this.context;
     router.push('/login');
@@ -47,11 +66,12 @@ class Register extends Component {
       email: this.email.input.value,
       birthDate: this.date.state.date,
       sex: this.sex.state.selected,
+      avatar: this.state.avatar.data_uri,
     };
     
     this.register(personalData);
   }
-  
+
   register(personalData) {
     const { register } = this.props;
     register(personalData);
@@ -139,6 +159,8 @@ class Register extends Component {
                 label="Kobieta"
               />
             </RadioButtonGroup>
+            <br />
+            <input onChange={(e) => this.handleFile(e)} type="file" name="avatar" />
           </form>
         </Dialog>
       </div>

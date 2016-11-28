@@ -10,6 +10,8 @@ import {
   inactivatePostsAndCommentsNotifications,
   inactivateMessagesNotifications,
   inactivateFriendshipsNotifications,
+  sendAccept,
+  sendReject,
 } from '../actions/dashboard';
 
 function mapPropsToState(state, ownProps) {
@@ -37,6 +39,8 @@ function mapDispatchToProps(dispatch) {
     inactivatePostsAndCommentsNotifications,
     inactivateMessagesNotifications,
     inactivateFriendshipsNotifications,
+    sendAccept,
+    sendReject,
   };
   return bindActionCreators(actions, dispatch);
 }

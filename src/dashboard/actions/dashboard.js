@@ -25,6 +25,7 @@ export const MESSAGES_NOTIFICATIONS_INACTIVATED = 'MESSAGES_NOTIFICATIONS_INACTI
 export const FRIENDSHIPS_NOTIFICATIONS_INACTIVATED = 'FRIENDSHIPS_NOTIFICATIONS_INACTIVATED';
 export const UPDATE_POSTS_WITH_COMMENTS = 'UPDATE_POSTS_WITH_COMMENTS';
 export const RESET_USER_PAGE_DATA = 'RESET_USER_PAGE_DATA';
+export const REDUCE_FRIENDSHIPS_NOTIFICATIONS = 'REDUCE_FRIENDSHIPS_NOTIFICATIONS';
 
 export function initSocket(userId) {
   return(dispatch, getState) => {
@@ -164,6 +165,13 @@ export function resetUserPageData() {
   }
 }
 
+export function reduceFriendshipsNotifications(id) {
+  return {
+    type: REDUCE_FRIENDSHIPS_NOTIFICATIONS,
+    data: { id }
+  }
+}
+
 export function fetchPostsWithComments(id) {
   return(dispatch, getState) => {
     apiServices.fetchPostsWithComments(id)
@@ -245,10 +253,24 @@ export function sendUserSearchQuery(content, id) {
     apiServices.sendUserSearchQuery(content, id)
       .then(data => dispatch(receiveSearchResult(data)));
   };
-}
+}p
 
 export function sendInvitation(who, whom) {
   return (dispatch, getState) => {
     socketService.sendInvitation(who, whom);
   };
+}
+
+export function sendAccept(id) {
+  return (dispatch, getState) => {
+    apiServices.sendAccept(id)
+      .then(() => dispatch(reduceFriendshipsNotifications(id)));  
+  }
+}
+
+export function sendReject(id) {
+  return (dispatch, getState) => {
+    apiServices.sendReject(id)
+      .then(() => dispatch(reduceFriendshipsNotifications(id)));
+  }
 }

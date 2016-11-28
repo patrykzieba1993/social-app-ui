@@ -23,6 +23,7 @@ class LoginForm extends Component {
               floatingLabelText="Login"
               errorText={this.state.loginError}
               ref={(c) => this.login = c}
+              autoFocus
             />
             <br/>
             <TextField

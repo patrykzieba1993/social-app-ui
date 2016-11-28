@@ -35,6 +35,7 @@ class MessageForm extends Component {
           rows={1}
           rowsMax={5}
           onChange={this.changeMessageState}
+          autoFocus
         />
         <br />
         <RaisedButton

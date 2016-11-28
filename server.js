@@ -9,7 +9,10 @@ const consolidate = require('consolidate');
 const bodyParser = require('body-parser');
 
 const loginHandler = require('./src-server/http/loginHandler');
+const registerHandler = require('./src-server/http/registerHandler');
 const socketHelper = require('./src-server/socket/socketHelper');
+
+const verifier = require('./src-server/verifier/verifier');
 
 const notFound = (req, res, next) => {
   const err = new Error('Resource not found');
@@ -50,10 +53,9 @@ const setupRoutes = (app) => {
   app.get('/dashboard*', (req, res) => res.render('dashboard'));
   
   app.post('/login/authenticate', loginHandler);
+  app.post('/login/register', registerHandler);
   app.get('/login*', (req, res) => res.render('login'));
-  
-  // app.get('/*', (req, res) => res.render('index'));
-  
+
   app.use(notFound);
   app.use(errorHandler);
 };

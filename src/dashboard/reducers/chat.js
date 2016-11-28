@@ -28,3 +28,4 @@ export default function filters(state = defaultState, action) {
       return state;
   }
 }
+

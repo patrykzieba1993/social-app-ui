@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import FlatButton from 'material-ui/FlatButton';
+import Snackbar from 'material-ui/Snackbar';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Link } from 'react-router';
@@ -33,7 +34,12 @@ class App extends Component {
           <Link to="/login/register">
             <FlatButton label="Rejestracja" primary={true}/>
           </Link>
-          <span style={{display: registerState ? 'block' : 'none'}}>Pomyslna rejestracja</span>
+          <Snackbar
+            open={registerState || false}
+            message="Pomyślna rejestracja"
+            autoHideDuration={6000}
+            contentStyle={{textAlign: 'center'}}
+          />
         </div>
         {this.props.children}
       </div>

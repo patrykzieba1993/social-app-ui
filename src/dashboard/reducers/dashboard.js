@@ -18,6 +18,7 @@ import {
   RECEIVE_USER_PAGE_DATA,
   UPDATE_POSTS_WITH_COMMENTS,
   RESET_USER_PAGE_DATA,
+  REDUCE_FRIENDSHIPS_NOTIFICATIONS,
 } from '../actions/dashboard';
 
 const defaultState = {
@@ -91,7 +92,10 @@ export default function filters(state = defaultState, action) {
     case UPDATE_POSTS_WITH_COMMENTS:
       return Object.assign({}, state, { postsWithComments: action.data });
     case RESET_USER_PAGE_DATA:
-      return Object.assign({}, state, { userPageData: Object.assign({}, defaultState.userPageData )})
+      return Object.assign({}, state, { userPageData: Object.assign({}, defaultState.userPageData )});
+    case REDUCE_FRIENDSHIPS_NOTIFICATIONS:
+      state.friendshipsNotificationsData.splice(state.friendshipsNotificationsData.find(n => n.id === action.data.id), 1);
+      return Object.assign({}, state, { friendshipsNotificationsData: [...state.friendshipsNotificationsData]});
     default:
       return state;
   }

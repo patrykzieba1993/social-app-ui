@@ -16,9 +16,13 @@ export default class ApiService {
   static register(personalData) {
     const formData = new FormData();
     prepareFormData(personalData, formData);
-    return fetch(`${API_URL}/authorization/register`, {
+    return fetch(`http://localhost:3001/login/register`, {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(personalData),
     })
   }
   
@@ -145,5 +149,17 @@ export default class ApiService {
           return response.json();
         }
       });
+  }
+
+  static sendAccept(id) {
+    return fetch(`${API_URL}/notification/friendships/accept/${id}`, {
+      method: 'PATCH',
+    })
+  }
+
+  static sendReject(id) {
+    return fetch(`${API_URL}/notification/friendships/reject/${id}`, {
+      method: 'PATCH',
+    })
   }
 }

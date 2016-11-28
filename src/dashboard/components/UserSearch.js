@@ -13,10 +13,12 @@ class UserSearch extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleSend = this.handleSend.bind(this);
     this.handleRedirectToUserPage = this.handleRedirectToUserPage.bind(this);
+    this.handleInvitation = this.handleInvitation.bind(this);
   }
   
   state = {
     open: false,
+    showInvitation: true,
   }
   
   handleClose() {
@@ -34,6 +36,15 @@ class UserSearch extends Component {
     });
   }
 
+  handleInvitation(userId) {
+    const { sendInvitation, loggedUserData } = this.props;
+    sendInvitation(loggedUserData.id, userId);
+    
+    this.setState({
+      showInvitation: false,
+    });
+  }
+  
   handleRedirectToUserPage(id) {
     const { router } = this.context;
     router.push(`/dashboard/page/${id}`);
@@ -53,7 +64,7 @@ class UserSearch extends Component {
     const items = searchResult.map(result =>
       <ListItem
         leftAvatar={<Avatar src={`../../${result.login}.jpg`} />}
-        rightIconButton={result.isFriend ? null : <FlatButton label='Zaproś' />}
+        rightIconButton={result.isFriend ? null : <FlatButton style={{display: this.state.showInvitation ? 'block': 'none'}} label='Zaproś' onTouchTap={() => this.handleInvitation(result.userId)} />}
         primaryText={`${result.firstName} ${result.lastName}`}
         onTouchTap={() => this.handleRedirectToUserPage(result.userId)}
       />
@@ -101,6 +112,7 @@ UserSearch.PropTypes = {
   searchResult: PropTypes.array,
   location: PropTypes.object,
   sendUserSearchQuery: PropTypes.func.isRequired,
+  sendInvitation: PropTypes.func.isRequired,
 };
 
 export default UserSearch;
