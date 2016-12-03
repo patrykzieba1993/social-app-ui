@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
@@ -78,6 +79,15 @@ class Register extends Component {
   }
   
   render() {
+    const itemStyle = {
+      marginBottom: '10',
+    };
+
+    const selectableStyle = {
+      marginTop: '20px',
+      marginBottom: '20px',
+    };
+
     const actions = [
       <FlatButton
         label="Powrót"
@@ -102,65 +112,82 @@ class Register extends Component {
           open={true}
           autoScrollBodyContent={true}
           onRequestClose={this.handleClose}
+          titleStyle={{backgroundColor: '#00BCD4', textAlign: 'center', color: '#ffffff'}}
+          bodyStyle={{textAlign: 'center'}}
         >
           <form>
             <TextField
               floatingLabelText="Imie"
               errorText={this.state.firstNameError}
               ref= {(c) => this.firstName = c}
+              style={itemStyle}
             />
-            <br/>
+            <br />
             <TextField
               floatingLabelText="Nazwisko"
               errorText={this.state.lastNameError}
               ref= {(c) => this.lastName = c}
+              style={itemStyle}
             />
-            <br/>
+            <br />
             <TextField
               floatingLabelText="Adres e-mail"
               errorText={this.state.emailError}
               ref= {(c) => this.email = c}
+              style={itemStyle}
             />
-            <br/>
+            <br />
             <TextField
               floatingLabelText="Login"
               errorText={this.state.loginError}
               ref= {(c) => this.login = c}
+              style={itemStyle}
             />
-            <br/>
+            <br />
             <TextField
               floatingLabelText="Hasło"
               type="password"
               errorText={this.state.passwordError}
               ref= {(c) => this.password = c}
+              style={itemStyle}
             />
-            <br/>
+            <br />
             <TextField
               floatingLabelText="Potwierdź hasło"
               type="password"
               errorText={this.state.confirmPasswordError}
               ref= {(c) => this.confirmPassword = c}
+              style={itemStyle}
             />
-            <br/>
             <br/>
             <DatePicker
               hintText="Data urodzenia"
               mode="landscape"
               ref={(c) => this.date = c}
+              style={selectableStyle}
             />
-            <br/>
-            <RadioButtonGroup defaultSelected="male" name="sex" ref= {(c) => this.sex = c}>
+            <br />
+            <RadioButtonGroup style={selectableStyle} defaultSelected="male" name="sex" ref= {(c) => this.sex = c}>
               <RadioButton
+                style={{width: '33%', margin: '0 auto'}}
+                labelStyle={{color: 'rgba(0, 0, 0, 0.35)'}}
                 value="male"
                 label="Mężczyzna"
               />
               <RadioButton
+                style={{width: '33%', margin: '0 auto'}}
+                labelStyle={{color: 'rgba(0, 0, 0, 0.35)'}}
                 value="female"
                 label="Kobieta"
               />
             </RadioButtonGroup>
             <br />
-            <input onChange={(e) => this.handleFile(e)} type="file" name="avatar" />
+            <div style={selectableStyle}>
+              <span style={{color: 'rgba(0, 0, 0, 0.35)'}}>Wybierz avatar</span>
+              <br />
+              <br />
+              <input style={{width: '23%'}} onChange={(e) => this.handleFile(e)} type="file" name="avatar" />
+            </div>
           </form>
         </Dialog>
       </div>

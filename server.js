@@ -55,7 +55,9 @@ const setupRoutes = (app) => {
   app.post('/login/authenticate', loginHandler);
   app.post('/login/register', registerHandler);
   app.get('/login*', (req, res) => res.render('login'));
-
+  
+  app.get('/', (req, res) => res.redirect('/login'));
+  
   app.use(notFound);
   app.use(errorHandler);
 };

@@ -4,9 +4,21 @@ import PostForm from './PostForm';
 import PostCard from './PostCard';
 
 class Home extends Component {
+  constructor() {
+    super();
+  }
+  
   componentWillMount() {
-    const { fetchPostsWithComments, loggedUserData } = this.props;
-    fetchPostsWithComments(loggedUserData.id);
+    const { fetchPostsWithComments } = this.props;
+    fetchPostsWithComments(this.props.params.id);
+  }
+
+  getChildContext() {
+    const {params} = this.props;
+    return {
+      location,
+      loggedUserData: {id: params.id}, // load id from localstorage
+    }
   }
   
   render() {
@@ -27,6 +39,11 @@ Home.PropTypes = {
   sendComment: PropTypes.func.isRequired,
   fetchPostsWithComments: PropTypes.func.isRequired,
   postsWithComments: PropTypes.array,
+  loggedUserData: PropTypes.object,
+}
+
+Home.childContextTypes = {
+  location: PropTypes.object,
   loggedUserData: PropTypes.object,
 }
 

@@ -31,18 +31,17 @@ const defaultState = {
   messagesNotifications: 0,
   friendshipsNotifications: 0,
   searchResult: [],
-  loggedUserData: {},
+  loggedUserData: { firstName: null, lastName: null, login: null, id: null },
   userPageData: { id: -1, userData: [{ firstName: null, lastName: null, login: null,}], postsWithComments: [], friends: [] },
 };
 
 export default function filters(state = defaultState, action) {
   switch (action.type) {
-    case SET_LOGGED_USER_DATA: 
+    case SET_LOGGED_USER_DATA:
       return Object.assign({}, state, { loggedUserData: action.data });
     case RECEIVE_POSTS_WITH_COMMENTS:
       return Object.assign({}, state, { postsWithComments: [...state.postsWithComments, ...action.data]});
     case RECEIVE_POST:
-      console.log(action.data);
       return Object.assign({}, state, { postsWithComments: [{
         author: action.data.author,
         comments: action.data.comments,

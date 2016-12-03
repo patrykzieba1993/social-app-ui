@@ -61,7 +61,7 @@ class UserSearch extends Component {
       />
     ];
 
-    const items = searchResult.map(result =>
+    let items = searchResult.map(result =>
       <ListItem
         leftAvatar={<Avatar src={`../../${result.login}.jpg`} />}
         rightIconButton={result.isFriend ? null : <FlatButton style={{display: this.state.showInvitation ? 'block': 'none'}} label='Zaproś' onTouchTap={() => this.handleInvitation(result.userId)} />}
@@ -70,8 +70,12 @@ class UserSearch extends Component {
       />
     )
     
+    if (!items || items === '' || items.length === 0) {
+      items = <ListItem disabled={true} primaryText='Brak wyników, wpisz inną frazę...' style={{color: '#999999', textAlign: 'center'}} />
+    }
+    
     return (
-      <div style={{paddingTop: '6px', marginRight: '25px'}}>
+      <div style={{paddingTop: '6px', marginRight: '0px'}}>
         <TextField
           hintText="Wyszukaj osobe..."
           style={{background: '#fff', height: '36px', width: '356px', borderRadius: '5px 0 0 5px'}}
@@ -94,7 +98,7 @@ class UserSearch extends Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
         >
-          <List>
+          <List style={{paddingBottom: '0'}}>
             { items }
           </List>
         </Dialog>

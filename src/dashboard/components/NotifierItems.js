@@ -40,7 +40,7 @@ class NotifierItems extends Component {
     } = this.props;
     
     return (
-      <div style={{marginRight: '100px'}}>
+      <div style={{marginRight: '0px'}}>
         <Notifier 
           notification={ notifications.postsNotifications + notifications.commentsNotifications } 
           fetcher={fetchPostsAndCommentsNotifications}

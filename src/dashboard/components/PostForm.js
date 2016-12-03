@@ -15,8 +15,9 @@ class PostForm extends Component {
   }
   
   handleSend() {
-    const { sendPost, loggedUserData } = this.props;
-    sendPost(this.state.text, loggedUserData.id);
+    const { sendPost } = this.props;
+    console.log(this.context);
+    sendPost(this.state.text, this.context.loggedUserData.id);
   }
   handleTextChange(e) {
     this.setState({
@@ -51,10 +52,13 @@ class PostForm extends Component {
   }
 }
 
-
 PostForm.PropTypes = {
   sendPost: PropTypes.func.isRequired,
   loggedUserData: PropTypes.object,
 }
+
+PostForm.contextTypes = {
+  loggedUserData: PropTypes.object,
+};
 
 export default PostForm;

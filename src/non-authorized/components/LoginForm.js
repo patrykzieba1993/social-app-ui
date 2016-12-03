@@ -16,7 +16,8 @@ class LoginForm extends Component {
   render() {
     return (
       <div>
-        <Paper key="LoginForm" zDepth='1' style={{width: '50%', margin: '0 auto', paddingBottom: '15px', marginBottom: '10px'}}>
+        <Paper key="LoginForm" zDepth='1' style={{width: '50%', margin: '0 auto', paddingBottom: '15px', paddingTop: '15px', marginBottom: '10px'}}>
+          <p style={{color: '#00BCD4', fontSize: '24px', fontWeight: '500'}}>Witaj w serwisie!</p>
           <form method="post" action="/login/authenticate">
             <TextField
               name="login"

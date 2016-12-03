@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Card from 'material-ui/Card';
 
 class MessageCard extends Component {
   render() {
@@ -11,9 +12,9 @@ class MessageCard extends Component {
       );
     });
     return (
-      <div>
+      <Card style={{minHeight: '300px'}}>
         { items }
-      </div>
+      </Card>
     );
   }
 }

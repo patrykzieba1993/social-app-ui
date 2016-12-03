@@ -11,9 +11,9 @@ class App extends Component {
   }
 
   componentWillMount() {
-    const { initSocket, location, setLoggedUserData } = this.props;
+    const { initSocket, location, fetchUserData } = this.props;
     initSocket(location.id);
-    setLoggedUserData({ id: location.id });
+    fetchUserData(location.id);
   }
   
   getChildContext() {
@@ -28,7 +28,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <SocialBar />
+        <SocialBar loggedUserData={this.props.loggedUserData} />
           {this.props.children}
       </div>
     );
@@ -38,7 +38,8 @@ class App extends Component {
 App.propTypes = {
   location: PropTypes.object,
   initSocket: PropTypes.func.isRequired,
-  setLoggedUserData: PropTypes.func.isRequired,
+  fetchUserData: PropTypes.func.isRequired,
+  loggedUserData: PropTypes.object,
 };
 
 App.childContextTypes = {

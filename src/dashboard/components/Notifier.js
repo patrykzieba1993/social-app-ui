@@ -4,6 +4,10 @@ import Paper from 'material-ui/Paper';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import { List, ListItem } from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
+import Divider from 'material-ui/Divider';
 
 class Notifier extends Component {
   constructor() {
@@ -100,21 +104,37 @@ class Notifier extends Component {
     // to refactor!!!
     const usersForMessage = [];
     let badgeCounter = 0;
-    const contents =  data.map(item => {
+    let contents =  data.map(item => {
       let content = null;
       switch (item.type) {
         case 'post':
           if (item.active) {
             badgeCounter++;
           }
-          content = `Użytkownik ${item.who.firstName} ${item.who.lastName} dodał wpis na swojej tablicy`;
+          content =
+            <div>
+              <ListItem
+                primaryText={`Użytkownik ${item.who.firstName} ${item.who.lastName} dodał wpis na swojej tablicy` }
+                leftAvatar={<Avatar style={{top: '0', bottom: '0', margin: 'auto' }} src={`../../${item.who.login}.jpg`} /> }
+                style={{ fontSize: '12px' }}
+              />
+              <Divider inset={true} />
+            </div>
           break;
         case 'comment':
           if (item.active) {
             badgeCounter++;
           }
-          content = `Użytkownik ${item.who.firstName} ${item.who.lastName} dodał komentarz
-                     ${item.who.login === item.whom.login ? 'do swojego wpisu' : `do wpisu użytkownika ${item.whom.firstName} ${item.whom.lastName}`}`;
+          content =
+            <div>
+              <ListItem
+              primaryText={ `Użytkownik ${item.who.firstName} ${item.who.lastName} dodał komentarz
+                       ${item.who.login === item.whom.login ? 'do swojego wpisu' : `do wpisu użytkownika ${item.whom.firstName} ${item.whom.lastName}`}` }
+              leftAvatar={<Avatar style={{top: '0', bottom: '0', margin: 'auto' }} src={`../../${item.who.login}.jpg`} /> }
+              style={{ fontSize: '12px' }}
+              />
+              <Divider inset={true} />
+            </div>
           break;
         case 'message':
           if (item.active) {
@@ -141,9 +161,31 @@ class Notifier extends Component {
           }
           content =
             <div>
-              <span>{`Użytkownik ${item.who.firstName} ${item.who.lastName} zaprosił Cie do znajomych`}</span>
-              <span><FlatButton label="Akceptuj" onTouchTap={() => this.handleAccept(item.id)} /></span>
-              <span><FlatButton label="Odrzuć" onTouchTap={() => this.handleReject(item.id)} /></span>
+              <ListItem
+                primaryText={`Użytkownik ${item.who.firstName} ${item.who.lastName} zaprosił Cie do znajomych`}
+                leftAvatar={ <Avatar src={`../../${item.who.login}.jpg`} /> }
+                disabled={true}
+                secondaryText={
+                  <div style={{height: '22px', textAlign: 'right' }}>
+                    <RaisedButton
+                     secondary={true}
+                      buttonStyle={{height: '20px', lineHeight: '20px'}} 
+                      style={{height: '20px', marginRight: '20px' }}
+                      labelStyle={{fontSize: '12px'}}
+                      label="Akceptuj" 
+                      onTouchTap={() => this.handleAccept(item.id)} 
+                    />
+                    <RaisedButton 
+                      buttonStyle={{height: '20px', lineHeight: '20px'}} 
+                      style={{height: '20px'}}
+                      labelStyle={{fontSize: '12px'}}
+                      label="Odrzuć" 
+                      onTouchTap={() => this.handleReject(item.id)} 
+                    />
+                  </div>
+                }
+                style={{fontSize: '12px'}}
+              />
             </div>
           break;
         default:
@@ -154,18 +196,37 @@ class Notifier extends Component {
     
     if (usersForMessage.length > 0) {
       return {
-        contents: usersForMessage.map(user => <div>
-          <span>{`${user.firstName} ${user.lastName}`}</span><span style={{display: user.counter > 0 ? 'inline-block': 'none'}}>{user.counter}</span></div>),
+        contents: usersForMessage.map(user =>
+          <div>
+            <ListItem
+              primaryText={`${user.firstName} ${user.lastName}`}
+              leftIcon={<Badge 
+                secondary={true} badgeContent={user.counter} 
+                badgeStyle={{display: user.counter > 0 ? 'inline-flex': 'none'}} 
+                style={{padding: '0'}}
+                />}
+              rightAvatar={<Avatar src={`../../${user.login}.jpg`} />}
+              style={{fontSize: '15px'}}
+            />
+            <Divider inset={true} />
+          </div>
+        ),
         count: badgeCounter,
       }
+    }
+    
+    if (!contents || contents === '' || contents.length === 0) {
+      contents = <ListItem
+        primaryText="Brak powiadomień..."
+        style={{color: '#999999', textAlign: 'center', cursor: 'default'}}
+        disabled={true}
+      />
     }
     
     return { contents, count: badgeCounter };
   }
 
   render() {
-    console.log('rerender');
-
     const { contents, count } = this.prepareItems(this.state.data);
     
     const badgeValue = count + this.state.notification;
@@ -194,7 +255,9 @@ class Notifier extends Component {
           style={{width: '33%'}}
         >
           <Paper zDepth="1">
-            {contents}
+            <List style={{paddingTop: '0px', paddingBottom: '0px', overflow: 'scroll', maxHeight: '400px'}}>
+              {contents}
+            </List>
           </Paper>
         </Popover>
       </div>

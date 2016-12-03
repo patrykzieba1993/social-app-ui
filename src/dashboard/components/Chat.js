@@ -36,15 +36,25 @@ class Chat extends Component {
   }
   
   render() {
-    const { friends, messages, location } = this.props;
+    const { friends, messages, location, receiverId } = this.props;
+    let content = null;
+    
+    if (receiverId) {
+      content = 
+        <div>
+          <MessageCard messages={ messages } location={ location } />
+          <MessageForm send={ this.prepareAndSendMessage } />
+        </div>
+    } else {
+      content = <div style={{fontSize: '24px', textAlign: 'center', color: '#999999', paddingTop: '36px'}}>Wybierz konwersację</div>
+    }
     
     return (
       <div>
         <Paper zDepth='1' style={{width: '70%', margin: '0 auto', paddingBottom: '8px'}}>
           <div style={{overflow: 'auto'}}>
             <div style={{float: 'left', width: '70%'}}>
-              <MessageCard messages={ messages } location={ location } />
-              <MessageForm send={ this.prepareAndSendMessage } />
+              {content}
             </div>
             <div style={{float: 'left', width: '30%'}}>
               <FriendsCard friends={ friends } set={ this.setReceiverId } />

@@ -5,19 +5,20 @@ import App from '../components/App';
 
 import { 
   initSocket,
-  setLoggedUserData,
+  fetchUserData,
 } from '../actions/dashboard';
 
 function mapStateToProps(state, ownProps) {
   return {
     location: ownProps.params,
+    loggedUserData: state.dashboard.loggedUserData,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   const actions = {
     initSocket,
-    setLoggedUserData,
+    fetchUserData,
   };
   return bindActionCreators(actions, dispatch);
 }

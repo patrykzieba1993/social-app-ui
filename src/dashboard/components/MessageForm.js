@@ -27,7 +27,7 @@ class MessageForm extends Component {
   
   render() {
     return (
-      <div>
+      <div style={{padding: '5px 10px'}}>
         <TextField
           style = {{width: '100%'}}
           hintText="Napisz wiadomość..."
@@ -39,7 +39,9 @@ class MessageForm extends Component {
         />
         <br />
         <RaisedButton
-          style={{float: 'right'}}
+          buttonStyle={{height: '30px', lineHeight: '30px'}}
+          style={{height: '30px', float: 'right'}}
+          labelStyle={{fontSize: '12px'}}
           label="Wyślij"
           primary={true}
           onTouchTap={this.handleSend}

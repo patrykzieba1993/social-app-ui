@@ -172,6 +172,15 @@ export function reduceFriendshipsNotifications(id) {
   }
 }
 
+export function fetchUserData(id) {
+  return (dispatch, getState) => {
+    apiServices.fetchUserData(id)
+      .then((data) => {
+        dispatch(setLoggedUserData(data));
+      });
+  };
+}
+
 export function fetchPostsWithComments(id) {
   return(dispatch, getState) => {
     apiServices.fetchPostsWithComments(id)
@@ -209,7 +218,6 @@ export function fetchFriendshipsNotifications(id) {
 }
 
 export function fetchUserPageData(userId, visitorId) {
-  console.log(userId, visitorId);
   return (dispatch, getState) => {
     apiServices.fetchUserPageData(userId, visitorId)
       .then((data) => dispatch(receiveUserPageData(data)));
@@ -253,7 +261,7 @@ export function sendUserSearchQuery(content, id) {
     apiServices.sendUserSearchQuery(content, id)
       .then(data => dispatch(receiveSearchResult(data)));
   };
-}p
+}
 
 export function sendInvitation(who, whom) {
   return (dispatch, getState) => {

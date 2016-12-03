@@ -25,7 +25,18 @@ export default class ApiService {
       body: JSON.stringify(personalData),
     })
   }
-  
+
+  static fetchUserData(id) {
+    return fetch(`${API_URL}/dashboard/userData/${id}`, {
+      method: 'GET',
+    })
+      .then(response => {
+        if(response.status === 200) {
+          return response.json();
+        }
+      })
+  }
+
   static fetchPostsWithComments(id) {
     return fetch(`${API_URL}/dashboard/postsWithComments/${id}`, {
       method: 'GET'

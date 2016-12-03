@@ -14,14 +14,16 @@ class SocialBar extends Component {
     return (
       <div>
         <AppBar
-          title={<span>Social App</span>}
-          iconElementRight={<SocialBarItems/>}
-          iconElementLeft={
-          <Link to={`/dashboard/home/${this.context.loggedUserData.id}`} >
-            <Home style={{marginTop: '10px', color: '#000'}} />
-          </Link>}
+          title={
+            <Link to={`/dashboard/home/${this.context.loggedUserData.id}`} style={{textDecoration: 'none', color: '#ffffff'}}>
+              <span>Social App</span>
+            </Link>
+          }
+          iconElementLeft={<span></span>}
+          iconElementRight={<SocialBarItems loggedUserData={this.props.loggedUserData} />}
+          iconStyleRight={{marginLeft: '0', width: '100%'}}
           style={{marginBottom: '10px'}}
-          titleStyle={{width: '100px'}}
+          titleStyle={{width: '150px', flex: 'none'}}
         />
       </div>
     );
@@ -33,6 +35,7 @@ SocialBar.contextTypes = {
 }
 
 SocialBar.propTypes = {
+  loggedUserData: PropTypes.object,
 }
 
 export default SocialBar;
